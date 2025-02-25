@@ -7,7 +7,7 @@ RUN dnf install -y gcc openssl-devel bzip2-devel libffi-devel zlib-devel make
 # Pobieramy i instalujemy Pythona w /opt/python3
 RUN cd /opt && \
     curl -O https://www.python.org/ftp/python/3.9.10/Python-3.9.10.tgz && \
-    tar xzf Python-3.9.10.tgz && \
+    tar xzf Python-3.9.10.tgz --no-same-owner && \
     cd Python-3.9.10 && \
     ./configure --prefix=/opt/python3 && \
     make && \
@@ -29,4 +29,3 @@ EXPOSE 8888
 
 # Uruchamiamy Jupyter Notebook po starcie kontenera
 CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
-
