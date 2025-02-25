@@ -14,9 +14,11 @@ RUN cd /opt && \
     make install && \
     rm -rf /opt/Python-3.9.10
 
-# Tworzymy dowiązania symboliczne
-RUN ln -s /opt/python3/bin/python3 /usr/bin/python3 && \
-    ln -s /opt/python3/bin/pip3 /usr/bin/pip3
+# Tworzymy dowiązania symboliczne i dodajemy /opt/python3/bin do PATH
+RUN rm -f /usr/bin/python3 && \
+    ln -s /opt/python3/bin/python3 /usr/bin/python3 && \
+    ln -s /opt/python3/bin/pip3 /usr/bin/pip3 && \
+    echo "export PATH=/opt/python3/bin:$PATH" >> /etc/profile
 
 # Instalujemy Jupyter Notebook
 RUN pip3 install --no-cache-dir jupyter
